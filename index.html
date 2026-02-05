@@ -1,42 +1,143 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Meu Site de Jogos</title>
-  <style>
-    body {
-      background: #0f0f0f;
-      color: white;
-      font-family: Arial;
-      text-align: center;
-    }
-    .game {
-      background: #1f1f1f;
-      margin: 15px;
-      padding: 15px;
-      border-radius: 10px;
-    }
-    a {
-      color: #00ff88;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniGames Dev</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b0b;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  padding: 20px;
+  color: #00ff88;
+}
+
+#menu, #gameArea {
+  padding: 20px;
+}
+
+.game-btn {
+  background: #1e1e1e;
+  margin: 10px auto;
+  padding: 20px;
+  max-width: 300px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.3s;
+}
+
+.game-btn:hover {
+  border-color: #00ff88;
+  transform: scale(1.03);
+}
+
+#gameArea {
+  display: none;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  background: #00ff88;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
 </head>
+
 <body>
 
-  <h1>🎮 Meu Site de Jogos</h1>
-  <p>Jogue direto no navegador</p>
+<h1>🎮 MiniGames Dev</h1>
 
-  <div class="game">
-    <h2>Jogo 1</h2>
-    <a href="https://exemplo.com" target="_blank">Jogar</a>
-  </div>
+<div id="menu">
+  <p>Escolha um puzzle para jogar:</p>
 
-  <div class="game">
-    <h2>Jogo 2</h2>
-    <a href="https://exemplo.com" target="_blank">Jogar</a>
-  </div>
+  <div class="game-btn" onclick="startGame(1)">🧩 Puzzle 1 – Clique Rápido</div>
+  <div class="game-btn" onclick="startGame(2)">🧠 Puzzle 2 – Contador</div>
+  <div class="game-btn" onclick="startGame(3)">🎯 Puzzle 3 – Adivinha Número</div>
+  <div class="game-btn" onclick="startGame(4)">🔢 Puzzle 4 – Soma</div>
+  <div class="game-btn" onclick="startGame(5)">⚡ Puzzle 5 – Tempo</div>
+  <div class="game-btn" onclick="startGame(6)">🔐 Puzzle 6 – Código</div>
+  <div class="game-btn" onclick="startGame(7)">🎲 Puzzle 7 – Sorte</div>
+  <div class="game-btn" onclick="startGame(8)">📦 Puzzle 8 – Escolha</div>
+  <div class="game-btn" onclick="startGame(9)">🧠 Puzzle 9 – Memória</div>
+  <div class="game-btn" onclick="startGame(10)">🔥 Puzzle 10 – Reflexo</div>
+</div>
+
+<div id="gameArea">
+  <div id="gameContent"></div>
+  <button onclick="backToMenu()">⬅ Voltar ao Menu</button>
+</div>
+
+<script>
+function startGame(id) {
+  document.getElementById("menu").style.display = "none";
+  document.getElementById("gameArea").style.display = "block";
+
+  let game = document.getElementById("gameContent");
+
+  if (id === 1) {
+    game.innerHTML = "<h2>Clique o mais rápido possível!</h2><button onclick='alert(\"Boa!\")'>CLICAR</button>";
+  }
+
+  if (id === 2) {
+    let count = 0;
+    game.innerHTML = "<h2>Contador</h2><p id='c'>0</p><button onclick='document.getElementById(\"c\").innerText=++count'>+</button>";
+  }
+
+  if (id === 3) {
+    let n = Math.floor(Math.random()*5)+1;
+    game.innerHTML = "<h2>Adivinhe de 1 a 5</h2><input id='i'><button onclick='alert(i.value==n?\"Acertou\":\"Errou\")'>OK</button>";
+  }
+
+  if (id === 4) {
+    let a = 2, b = 3;
+    game.innerHTML = `<h2>${a} + ${b} = ?</h2><input id='i'><button onclick='alert(i.value==a+b?"Certo":"Errado")'>Responder</button>`;
+  }
+
+  if (id === 5) {
+    game.innerHTML = "<h2>Clique antes de 3 segundos!</h2>";
+    setTimeout(()=>game.innerHTML+="<br><button>Perdeu</button>",3000);
+    game.innerHTML += "<br><button onclick='alert(\"Ganhou\")'>CLICAR</button>";
+  }
+
+  if (id === 6) {
+    game.innerHTML = "<h2>Código Secreto: 123</h2><input id='i'><button onclick='alert(i.value==123?\"Liberado\":\"Negado\")'>Entrar</button>";
+  }
+
+  if (id === 7) {
+    game.innerHTML = "<h2>Sorte</h2><button onclick='alert(Math.random()>0.5?\"Ganhou\":\"Perdeu\")'>Tentar</button>";
+  }
+
+  if (id === 8) {
+    game.innerHTML = "<h2>Escolha a caixa certa</h2><button onclick='alert(\"Errado\")'>📦</button><button onclick='alert(\"Certo\")'>📦</button>";
+  }
+
+  if (id === 9) {
+    game.innerHTML = "<h2>Memorize: 7 3 9</h2><input id='i'><button onclick='alert(i.value==739?\"Boa memória\":\"Errou\")'>OK</button>";
+  }
+
+  if (id === 10) {
+    game.innerHTML = "<h2>Clique quando ficar verde</h2>";
+    setTimeout(()=>game.innerHTML+="<br><button style='background:green'>CLIQUE</button>",2000);
+  }
+}
+
+function backToMenu() {
+  document.getElementById("gameArea").style.display = "none";
+  document.getElementById("menu").style.display = "block";
+}
+</script>
 
 </body>
 </html>
